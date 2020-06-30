@@ -1,0 +1,29 @@
+CELERY_APP="conf.celery"
+CELERYD_NODES="pw-worker.vagrant"
+CELERYD_CHDIR="/home/vagrant/code/pointwallet"
+CELERY_BIN="/home/vagrant/.local/bin/celery"
+CELERYD_LOG_DIR="/home/vagrant/log/celery/local-worker.kidsnote.com"
+CELERYD_RUN_DIR="/home/vagrant/code/pointwallet"
+CELERYD_LOG_FILE="/home/vagrant/log/celery/local-worker.kidsnote.com/celeryd/celeryd.log"
+CELERYD_PID_FILE="/home/vagrant/log/celery/local-worker.kidsnote.com/celeryd.pid"
+CELERYD_LOG_LEVEL="INFO"
+CELERYD_USER=vagrant
+CELERYD_GROUP=vagrant
+
+export SECURE_KAGE_ACCESS_KEY="z0ceClrVuPv2awbFE39UtZJY8CCdRafQ"
+export SECURE_KAGE_SECRET_KEY="2FJcEUckQqw7QRR9C0lv3Htw1TqmlMAuCSjDrDPk3ySDZWSLvd5Q1dnKO1PBljJ6z0ceClrVuPv2awbFE39UtZJY8CCdRafQ"
+export KAGE_ACCESS_KEY="z0ceClrVuPv2awbFE39UtZJY8CCdRafQ"
+export KAGE_SECRET_KEY="2FJcEUckQqw7QRR9C0lv3Htw1TqmlMAuCSjDrDPk3ySDZWSLvd5Q1dnKO1PBljJ6z0ceClrVuPv2awbFE39UtZJY8CCdRafQ"
+export MANDRILL_API_KEY="WZ7DDJCGlCzquv5GR18gsA"
+export PPURIO_AUTH_TOKEN="OTI2LTEzODU2NDM1OTA5MjgtYWJmOGU5NTktY2VkZS00YTg3LWI4ZTktNTljZWRlZGE4Nzkw"
+export INFOBANK_SMS_ID="kidsnote_https"
+export INFOBANK_SMS_PWD="GFM3444RW761021VSO10"
+export HTTP_PROXY=""
+export HTTPS_PROXY=""
+export NO_PROXY=""
+export NEW_RELIC_CONFIG_FILE="/home/deploy/sites/local-worker.kidsnote.com/source/newrelic.ini"
+export GOOGLE_API_KEY="AIzaSyBPRE7PnTLWdBtwAWsj429gIi5nEl44MxU"
+export GOOGLE_MAP_API_KEY="AIzaSyA3Rxsg_8d5sdX7Yd4xzXoPYTLLd9pqNaY"
+
+
+CELERYD_OPTS="--concurrency=1 -Ofair"

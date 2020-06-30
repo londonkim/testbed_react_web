@@ -1,0 +1,55 @@
+{
+  "rabbit_version": "3.6.14",
+  "users": [
+    {
+      "name": "kidsnote",
+      "password_hash": "+1EwFCeFBBtBTRvC2S8cg1slkyZ69holvAha30d1MflF1pOg",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "point"
+    },
+    {
+      "name": "page"
+    },
+    {
+      "name": "misc"
+    },
+    {
+      "name": "default"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "kidsnote",
+      "vhost": "point",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "kidsnote",
+      "vhost": "page",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "kidsnote",
+      "vhost": "default",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "kidsnote",
+      "vhost": "misc",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ]
+}

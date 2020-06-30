@@ -1,0 +1,335 @@
+# -*- coding: utf-8 -*-
+from django.conf.urls import url, include
+
+
+#############################################################
+# Deploy Settings
+#############################################################
+for_admin = True
+for_internal_api = False
+for_external_api = False
+for_web = True
+for_worker = False
+for_worker_point = False
+
+#############################################################
+# Deploy Settings
+#############################################################
+STATIC_DEPLOY_DEVELOPER = True  # 개발자
+STATIC_DEPLOY_STAGING = False  # staging server
+STATIC_DEPLOY_PRODUCTION = False  # production server
+
+if for_admin:
+    from conf.settings.staging_admin import *
+    ROOT_URLCONF = 'conf.urls.admin_urls'
+
+elif for_internal_api:
+    from conf.settings.staging_internal_api import *
+    ROOT_URLCONF = 'conf.urls.api_urls'
+
+elif for_external_api:
+    from conf.settings.staging_external_api import *
+    ROOT_URLCONF = 'conf.urls.api_urls'
+
+elif for_web:
+    from conf.settings.staging_web import *
+    ROOT_URLCONF = 'conf.urls.web_urls'
+elif for_worker:
+    from conf.settings.staging_worker import *
+    ROOT_URLCONF = 'conf.urls.api_urls'  # nothing.
+elif for_worker_point:
+    from conf.settings.staging_worker_point import *
+    ROOT_URLCONF = 'conf.urls.api_urls'  # nothing.
+
+else:
+    raise Exception('Invalid local config!')
+
+#############################################################
+# END-POINT SETTINGS
+#############################################################
+SECRET_KEY = '5wj3x9&!=_x(nbtjtbfl+v%+%5@5*d#!93kiumt8dkkh3wx3a1'
+
+DEBUG = True
+ALLOWED_HOSTS = ['local-point.kidsnote.com', '192.168.10.1']
+
+CSRF_COOKIE_SECURE = False
+CSRF_USE_SESSIONS = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_NAME = 'pwccn'
+CSRF_COOKIE_DOMAIN = 'local-point.kidsnote.com'
+SESSION_COOKIE_DOMAIN = 'local-point.kidsnote.com'
+
+
+#############################################################
+# END-POINT SETTINGS - INSTALLED APPS
+#############################################################
+
+SITE_URL = 'http://local-point.kidsnote.com:8000'
+
+#############################################################
+# MESSAGE QUEUE settings
+#############################################################
+BROKER_URL_DEFAULT = 'amqp://kidsnote:kidsnote@127.0.0.1:5672/default'
+BROKER_URL_POINT = 'amqp://kidsnote:kidsnote@127.0.0.1:5672/point'
+
+
+#############################################################
+# Critical settings - CACHES
+# https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-CACHES
+#############################################################
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'redis://127.0.0.1:6379/0',
+        'OPTIONS': {
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'PICKLE_VERSION': -1,
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+            "IGNORE_EXCEPTIONS": True,
+        },
+    },
+    "cachalot": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        'LOCATION': 'redis://127.0.0.1/1',
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "PARSER_CLASS": "redis.connection.HiredisParser",
+            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+            "IGNORE_EXCEPTIONS": True,
+        }
+    }
+}
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'pointwallet',
+        'USER': 'django',
+        'PASSWORD': 'password',
+        'HOST': '',
+        'PORT': '',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': 'set collation_connection=utf8mb4_unicode_ci; SET default_storage_engine=INNODB; SET SQL_MODE=STRICT_TRANS_TABLES;',
+        },
+        'CONN_MAX_AGE': 600,
+    },
+    'pwdb_1': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'pointwalletdb_1',
+        'USER': 'django',
+        'PASSWORD': 'password',
+        'HOST': '',
+        'PORT': '',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': 'set collation_connection=utf8mb4_unicode_ci; SET default_storage_engine=INNODB; SET SQL_MODE=STRICT_TRANS_TABLES;',
+        },
+        'CONN_MAX_AGE': 600,
+    },
+    'pwdb_2': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'pointwalletdb_2',
+        'USER': 'django',
+        'PASSWORD': 'password',
+        'HOST': '',
+        'PORT': '',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': 'set collation_connection=utf8mb4_unicode_ci; SET default_storage_engine=INNODB; SET SQL_MODE=STRICT_TRANS_TABLES;',
+        },
+        'CONN_MAX_AGE': 600,
+    },
+    'pwdb_3': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'pointwalletdb_3',
+        'USER': 'django',
+        'PASSWORD': 'password',
+        'HOST': '',
+        'PORT': '',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': 'set collation_connection=utf8mb4_unicode_ci; SET default_storage_engine=INNODB; SET SQL_MODE=STRICT_TRANS_TABLES;',
+        },
+        'CONN_MAX_AGE': 600,
+    },
+    'pwdb_4': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'pointwalletdb_4',
+        'USER': 'django',
+        'PASSWORD': 'password',
+        'HOST': '',
+        'PORT': '',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': 'set collation_connection=utf8mb4_unicode_ci; SET default_storage_engine=INNODB; SET SQL_MODE=STRICT_TRANS_TABLES;',
+        },
+        'CONN_MAX_AGE': 600,
+    },
+    'pwdb_5': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'pointwalletdb_5',
+        'USER': 'django',
+        'PASSWORD': 'password',
+        'HOST': '',
+        'PORT': '',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': 'set collation_connection=utf8mb4_unicode_ci; SET default_storage_engine=INNODB; SET SQL_MODE=STRICT_TRANS_TABLES;',
+        },
+        'CONN_MAX_AGE': 600,
+    },
+}
+
+
+DB_SHARD_NAMES =[
+    (1, 'pwdb_1'),
+    (2, 'pwdb_2'),
+    (3, 'pwdb_3'),
+    (4, 'pwdb_4'),
+    (5, 'pwdb_5'),
+]
+
+DATABASE_ROUTERS = [
+    'conf.db_routers.point_wallet_router.PointWalletRouter'
+]
+
+
+
+if STATIC_DEPLOY_DEVELOPER:
+    STATIC_URL = '/dn/kidsnote/pointwallet/'
+    COMPRESS_ENABLED = False
+    COMPRESS_OFFLINE = False
+elif STATIC_DEPLOY_STAGING or STATIC_DEPLOY_PRODUCTION:
+    if STATIC_DEPLOY_STAGING:
+        STATIC_URL = 'https://sandbox-mk.kakaocdn.net/dn/kidsnote/pointwallet/'
+        SWIFT_AUTH_URL = 'http://sandbox-mk.kakao.com/auth/v1.0'
+        COMPRESS_OFFLINE_MANIFEST = "manifest-dev.json"
+    elif STATIC_DEPLOY_PRODUCTION:
+        STATIC_URL = 'https://mk.kakaocdn.net/dn/kidsnote/pointwallet/'
+        SWIFT_AUTH_URL = 'http://api-metakage-4misc.kakao.com/auth/v1.0'
+        COMPRESS_OFFLINE_MANIFEST = "manifest.json"
+
+    COMPRESS_ROOT = path.normpath(path.join(ROOT_DIR, 'static'))
+
+    COMPRESS_ENABLED = True
+    COMPRESS_OFFLINE = True
+
+    COMPRESS_OUTPUT_DIR = 'cache'
+    COMPRESS_OFFLINE_CONTEXT = {
+        'STATIC_URL': STATIC_URL
+    }
+    COMPRESS_YUI_BINARY = "java -jar {}".format(path.join(COMPRESS_ROOT, 'yuicompressor-2.4.8.jar'))
+    COMPRESS_YUI_CSS_ARGUMENTS = '--charset=utf8 --type css '
+    COMPRESS_YUI_JS_ARGUMENTS = '--charset=utf8 --type js '
+    COMPRESS_CSS_FILTERS = [
+        'compressor.filters.css_default.CssAbsoluteFilter',
+        'compressor.filters.cssmin.CSSMinFilter',
+        'compressor.filters.yui.YUICSSFilter',
+    ]
+    COMPRESS_JS_FILTERS = [
+        'compressor.filters.jsmin.JSMinFilter',
+        'compressor.filters.yui.YUIJSFilter',
+    ]
+    COMPRESS_OFFLINE_TIMEOUT = 31536000  # 1 Year
+
+    STATICFILES_STORAGE = 'swift.storage.StaticSwiftStorage'
+    DEFAULT_FILE_STORAGE = 'swift.storage.SwiftStorage'
+    SWIFT_BASE_URL = STATIC_URL
+    SWIFT_USERNAME = 'kidsnote'
+    SWIFT_KEY = 'kidsnote'
+    SWIFT_CONTAINER_NAME = 'pointwallet'
+    SWIFT_STATIC_CONTAINER_NAME = 'pointwallet'
+    SWIFT_STATIC_BASE_URL = STATIC_URL
+    SWIFT_AUTO_BASE_URL = False
+else:
+    STATIC_URL = '/static/'
+    COMPRESS_ENABLED = False
+    COMPRESS_OFFLINE = False
+
+
+if STATIC_DEPLOY_DEVELOPER or STATIC_DEPLOY_STAGING:
+    META_KAGE_HOST = "http://sandbox-mk.kakao.com"
+    META_KAGE_CDN = "https://sandbox-mk.kakaocdn.net/dn/kidsnote"
+    KAGE_BASE_UPLOAD_URL = "https://sandbox-api1-kage.kakao.com/up/kidsnote-{file_type}/"
+    KAGE_BASE_SCRAP_URL = "http://sandbox-api1-kage.kakao.com/scrap/kidsnote-{file_type}/"
+    KAGE_DOWNLOAD_URL = "https://sandbox-api1-kage.kakao.com/dn/{access_key}/{filename}"
+    KAGE_INFO_URL = "https://sandbox-api1-kage.kakao.com/info/{access_key}"
+
+    OAUTH2_KEY = 'RTFjVmR0RlNyOVIzSWhDeFFxa3FyWFJrNldYc0RFMkVHbFg5SlY2RjpYMW9iUUtpZ2tKNXN2WVZyRWtUZjhZeVZJM1lVWk8yczV0c1pZSmJFV3h0WmpaZ1FGQ09Tbk9IUjFpbkpkNDVCclhITDY0Uzl2SjRCSVBDRU5YMENoSmo4UDZlRGZuZVRkek1aSjRJRkJtalp3a05OY0htcm10ZllsQTNyU2tSbg=='
+
+elif STATIC_DEPLOY_PRODUCTION:
+    META_KAGE_HOST = "http://api-metakage-4misc.kakao.com"
+    META_KAGE_CDN = "https://mk.kakaocdn.net/dn/kidsnote"
+    KAGE_BASE_UPLOAD_URL = "https://up-kids-kage.kakao.com/up/kidsnote-{file_type}/"
+    KAGE_BASE_SCRAP_URL = "https://up-kids-kage.kakao.com/scrap/kidsnote-{file_type}/"
+    KAGE_DOWNLOAD_URL = "https://kids-{cdn_kind}.kakaocdn.net/dn/{access_key}/{filename}"
+    KAGE_INFO_URL = "https://up-kids-kage.kakao.com/info/{access_key}"
+
+    OAUTH2_KEY = 'eTU0bU4xbHBhWTcyTmlQTEZPQnp5WlNkS2FMV0h4ZUNUV0VoUXp4RzpleENKNVQ5TmlzaGc2NkpEQzh1b1NZN29PM1hTVVVVcjlHRG5penVWaGd3TDJyWkpNVkJHY0hYYTh1UDZ2VmlHbGE2VERGVE8ybDFIMEw3cEdIckFRQ1lpMWsyakEwVTVVT2RmQ2pXeDdSVVJDMk0xZlhhd1ZNRXBIdGJDZExQbQ=='
+
+#
+# SWAGGER_SETTINGS = {
+#     "DEFAULT_AUTO_SCHEMA_CLASS": "apps.api.inspectors.SwaggerAutoSchema"
+# }
+
+# import sentry_sdk
+# from sentry_sdk.integrations.django import DjangoIntegration
+#
+# sentry_sdk.init(
+#     dsn="https://f6d8605c2b8d40c586fde2dfe83da8fc@sentry.io/1875565",
+#     integrations=[DjangoIntegration()],
+#     send_default_pii=True
+# )
+# 키즈노트(Android - Staging)     SDK version : 6.60
+# App ID	8040f050-1051-266d-d662-15000f0c040d
+# App Key	91f0f8b6f8fbcc678fd170244a81f1e8
+TNK_ANDROID_APP_KEY = "91f0f8b6f8fbcc678fd170244a81f1e8"
+
+# 키즈노트 (iOS - Staging)     SDK version : 4.20
+# App ID	50201060-2051-266d-d662-15010f0e0209
+# App Key	364cbba698cacc6ea876dc31ea73a8fc
+TNK_IOS_APP_KEY = "364cbba698cacc6ea876dc31ea73a8fc"
+
+if DEBUG:
+    INTERNAL_IPS = (
+        '127.0.0.1',
+        '172.28.82.237',
+        '192.168.10.1'
+    )
+    MIDDLEWARE += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
+
+    DEBUG_TOOLBAR_PANELS = [
+        'debug_toolbar.panels.versions.VersionsPanel',
+        'debug_toolbar.panels.timer.TimerPanel',
+        'debug_toolbar.panels.settings.SettingsPanel',
+        'debug_toolbar.panels.headers.HeadersPanel',
+        'debug_toolbar.panels.request.RequestPanel',
+        'debug_toolbar.panels.sql.SQLPanel',
+        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+        'debug_toolbar.panels.templates.TemplatesPanel',
+        'debug_toolbar.panels.cache.CachePanel',
+        'debug_toolbar.panels.signals.SignalsPanel',
+        'debug_toolbar.panels.logging.LoggingPanel',
+        'debug_toolbar.panels.redirects.RedirectsPanel',
+    ]
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
+    # CELERY_ALWAYS_EAGER = True
+
+
+# sentry_sdk.init()
+
+KIDSNOTE_POINT_API = 'http://local-point.kidsnote.com/api/v1'
