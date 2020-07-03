@@ -1,0 +1,21 @@
+.TodoListItem {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+
+    .checkbox {
+        flex: 1;
+        display: flex;
+        cursor: pointer;
+        align-items: center;
+
+        &.checked {
+            .text {
+                color: red;
+                text-decoration: line-through;
+            }
+        }
+        
+    }
+
+}
