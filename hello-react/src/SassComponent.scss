@@ -1,0 +1,18 @@
+@import './styles/utils.scss';
+
+.SassComponent {
+    display: flex;
+    .box {
+        background: red;
+        cursor: pointer;
+        &.red {
+            // .red 클래스가 .box와 함께 사용 되었을 때
+            background: $red;
+            @include square(1);
+        }
+        &.orange {
+            background: $orange;
+            @include square(2);
+        }
+    }
+}
