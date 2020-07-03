@@ -12,7 +12,7 @@ import Info from './Info'
 
 import Average from './Average'
 import SassComponent from './SassComponent';
-
+import CSSModule from './CSSModule'
 function App() {
   return (
     <div>
@@ -25,6 +25,7 @@ function App() {
       <Info></Info>
       <Average></Average>
       <SassComponent></SassComponent>
+      <CSSModule></CSSModule>
     </div>
   );
 
