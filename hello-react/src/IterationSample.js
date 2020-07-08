@@ -1,4 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
+
+
+function reducer(state, action) {
+    switch (action.type) {
+        case 'INCREMENT':
+            return { value: state.value + 1 }
+        case 'DECREMENT':
+            return { value: state.value - 1}
+        default:
+            return state
+    }
+}
+
 
 const IterationSample = () => {
 
@@ -44,6 +57,7 @@ const IterationSample = () => {
             console.log('clean up ' + inputText)  // 언마운트 되기 전이나 업데이트 되기 직전에 어떠한 작업을 수행하고 싶으면..
         }
     }, [inputText])
+
 
 
 

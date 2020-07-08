@@ -7,9 +7,8 @@
     @include media('<768px') {
         background: $oc-gray-9;
     };
-    
-    .box {
 
+    .box {
         cursor: pointer;
         &.red {
             // .red 클래스가 .box와 함께 사용 되었을 때
