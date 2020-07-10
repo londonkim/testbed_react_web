@@ -1,0 +1,20 @@
+.NewsItem {
+    .thumbnail {
+        width: 300px;
+        height: 200px;
+        .imgbox {
+            width: 180px;
+            height: 160px;
+            .img {
+                width: 130px;
+                height: 100px;
+            }
+        }
+    }
+
+    .imgbox {
+        width: 50px;
+        height: 150px;
+    }
+
+}

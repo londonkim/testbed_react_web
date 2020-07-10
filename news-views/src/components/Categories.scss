@@ -1,0 +1,11 @@
+.Categories {
+    margin: 5px;
+    .li {
+        font-weight: 600;
+        color: blue;
+
+        &.active {
+            color: red;
+        }
+    }
+}

@@ -1,6 +1,7 @@
 import React from 'react'
 import qs from 'qs'
 
+// query 스트링은 props location 
 const About = ({location}) => {
     const query = qs.parse(location.search, {
         ignoreQueryPrefix: true // 이 설정을 통해  문자 ? 생략
