@@ -29,3 +29,4 @@ const Categories = ({ category, onSelect }) => {
 }
 
 export default Categories
+
