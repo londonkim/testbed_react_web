@@ -17,7 +17,7 @@ const TodosContainer = ({
             todos={todos}
             onChangeInput={changeInput}
             onInsert={insert}
-            onToggle={todos}
+            onToggle={toggle}
             onRemove={remove}
         ></Todos>
     )
@@ -32,6 +32,9 @@ export default connect(
     }),
     {
         changeInput,
+        insert,
+        toggle,
+        remove
         
     }
-)
+)(TodosContainer)
