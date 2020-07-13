@@ -1,4 +1,4 @@
-import { createContext, useState} from 'react'
+import React, { createContext, useState} from 'react'
 
 const ColorContext = createContext( 
     {
@@ -20,9 +20,7 @@ const ColorProvider = ({children}) => {
     }
 
     return (
-        <div>
-        <ColorContext.Provider value={{value}}> {{children}} </ColorContext.Provider>
-        </div>
+        <ColorContext.Provider value={value}> {children} </ColorContext.Provider>
     )
 }
 
