@@ -125,40 +125,31 @@ const DemoReactKonvaTransForm = () => {
   ])
 
 
-  const [historyStep, setHistoryStep] = useState(0)
-
-  let initHistory = {
-      x: 130,
-      y: 150
+  const handleRedo = () => {
+    if (historyShapeStep === historyShape.length - 1) {
+      return;
     }
-  const [position, setPosition] = useState(
-      initHistory
-  )
 
-  const [history, setHistory] = useState([
-      initHistory
-  ])
+    setHistoryShapeStep(historyShapeStep+1);
+    const next = historyShape[historyShapeStep];
+
+    console.log(JSON.stringify(next))
+    setRectangle({
+      x: next.x,
+      y: next.y,
+      width: next.width,
+      height: next.height,
+      fill: 'red',
+      id: 'rect1',
+      rotation: next.rotation,
+      skewX: next.skewX,
+      scaleX: next.scaleX,
+      scaleY: next.scaleY
+    })
+
+  }
 
   const handleUndo = () => {
-    
-
-      if (historyStep === 0) {
-        return;
-      }
-
-      setHistoryStep(historyStep-1);
-      const previous = history[historyStep];
-
-      console.log(JSON.stringify(previous))
-
-      setPosition({
-       x: previous.x,
-       y: previous.y
-      });
-
-    };
-
-  const handleRedo = () => {
     if (historyShapeStep === 0) {
       return;
     }
@@ -184,19 +175,6 @@ const DemoReactKonvaTransForm = () => {
 
   const handleDragEnd = e => {
       console.log(JSON.stringify(e))
-      // setHistory(history.slice(0, historyStep + 1));
-      // const pos = {
-      //   x: e.target.x(),
-      //   y: e.target.y()
-      // };
-      // setHistory(history.concat([pos]));
-      // // historyStep += 1;
-      // setHistoryStep(historyStep+1);
-
-      // setPosition({
-      //     x: pos.x,
-      //     y: pos.y
-      // });
 
       const attr = e.target.attrs
 
@@ -292,8 +270,8 @@ const handleDownload = (event) => {
       ref={stageRef}
     >
       <Layer>
-          {/* <Text text="undo" onClick={handleUndo} /> */}
-          <Text text="undo2" x={40} onClick={handleRedo} />
+          <Text text="Redo" onClick={handleRedo} />
+          <Text text="Undo" x={40} onClick={handleUndo} />
           <Text text="download" x={80} onClick={handleDownload}></Text>
             <Rectangle
               shapeProps={rectangle}
