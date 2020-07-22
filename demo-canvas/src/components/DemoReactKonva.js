@@ -34,7 +34,6 @@ const DemoReactKonva = () => {
          y: previous.y
         });
 
-
       };
 
     const handleRedo = () => {

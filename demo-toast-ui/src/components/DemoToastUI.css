@@ -1,0 +1,9 @@
+.Container {
+    height: 1000px;
+    width: 1000px;
+}
+
+.tui-image-editor-canvas-container {
+    height: 1000px !important;
+    width: 1000px !important;
+}
