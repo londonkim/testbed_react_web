@@ -28,7 +28,7 @@ const Demo = () => {
         const y = Math.random() * 100
 
         const rect = {"type": "rect", "id":id, "x": x,"y": y, "rx":"20", "ry":"20", "width":"150", "height":"150", "style": {"fill":"red", "transform-box":"fill-box" , "transform-origin": "center"}, "offset": {}, "offsetScaleIcon": {},
-    "originPosition": {"x": x, "y": y}, "originWidthHeight": {"width": 150, "height": 150}, "offsetRotateIcon": {}}
+    "originPosition": {"x": x, "y": y}, "originWidthHeight": {"width": 150, "height": 150}, "offsetRotateIcon": {}, "groupStype": {}}
 
         setObjects(objects => [...objects, rect])
 
@@ -186,7 +186,8 @@ const Demo = () => {
                 "y": newY
             }
             
-            newObject.style = {"fill":"red", "transform-box":"fill-box" , "transform-origin": "center", "transform": "rotate(45deg)"}
+            // newObject.style = {"fill":"red", "transform-box":"fill-box" , "transform-origin": "center", "transform": "rotate(32deg)"}
+            // newObject.groupStype = {"fill":"red", "transform-box":"fill-box" , "transform-origin": "center", "transform": "rotate(32deg)"}
             console.log(newObject)
             setObjects([...newObjects, newObject])
         }
@@ -206,13 +207,30 @@ const Demo = () => {
             const newObjects = objects.map(object => {
 
                 if (object.id == selectedRotateIconRef.current.getAttribute('parentId')) {
-                    object.x = object.x - (object.offsetRotateIcon.x - x)
-                    object.y = object.y - (object.offsetRotateIcon.y - y)
+                    // object.x = object.x - (object.offsetRotateIcon.x - x)
+                    // object.y = object.y - (object.offsetRotateIcon.y - y)
                     
                     // object.width = Number(object.width) + (object.offsetScaleIcon.x - x)
                     // object.height = Number(object.height) + (object.offsetScaleIcon.y - y)
                     // object.height = object.height - (object.offsetScaleIcon.y - y)
 
+
+                    if (object.offsetRotateIcon.x - x < 0) {
+                        return object
+                    }
+                    if (object.offsetRotateIcon.y - y < 0) {
+                        return object
+                    }
+                    let angle = Math.atan2(
+                        object.offsetRotateIcon.x - x ,
+                        object.offsetRotateIcon.y - y
+                      );
+                    
+                      let asDegree = angle * 180 / Math.PI;
+                      let rotation = (asDegree - 45 ) * -1;
+                      object.groupStype = {"fill":"red", "transform-box":"fill-box" , "transform-origin": "center", "transform": "rotate("+rotation+"deg)"}
+                      object.style = {"fill":"red", "transform-box":"fill-box" , "transform-origin": "center", "transform": "rotate("+rotation+"deg)"}
+                        //https://codepen.io/gox/pen/oNgrmpK
                 }
                 return object
             })

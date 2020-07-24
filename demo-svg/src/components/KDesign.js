@@ -29,48 +29,52 @@ const KDesign = (tagObject, onMouseDown, onTextClick, onMouseDownScaleIcon, onMo
             return (
                 <g>
 
-                    <g key={tagObject.id} style={{"fill":"red", "transform-box":"fill-box" , "transform-origin": "center", "transform": "rotate(45deg)"}}>
+                    <g key={tagObject.id} style={tagObject.groupStype}>
                 
-                    <line x1={x1} y1={y1} x2={x2} y2={y2} style={{
-                        stroke: 'black',
-                        strokeWidth: '2'
-                    }}/>
+                        <line x1={x1} y1={y1} x2={x2} y2={y2} style={{
+                            stroke: 'black',
+                            strokeWidth: '2'
+                        }}/>
 
-                    <line x1={x2} y1={y2} x2={x3} y2={y3} style={{
-                        stroke: 'black',
-                        strokeWidth: '2'
-                    }}
-                    />
+                        <line x1={x2} y1={y2} x2={x3} y2={y3} style={{
+                            stroke: 'black',
+                            strokeWidth: '2'
+                        }}
+                        />
 
-                    <line x1={x3} y1={y3} x2={x4} y2={y4} style={{
-                        stroke: 'black',
-                        strokeWidth: '2'
-                    }}
-                    />
+                        <line x1={x3} y1={y3} x2={x4} y2={y4} style={{
+                            stroke: 'black',
+                            strokeWidth: '2'
+                        }}
+                        />
 
-                    <line x1={x4} y1={y4} x2={x1} y2={y1} style={{
-                        stroke: 'black',
-                        strokeWidth: '2'
-                    }}
-                    />
+                        <line x1={x4} y1={y4} x2={x1} y2={y1} style={{
+                            stroke: 'black',
+                            strokeWidth: '2'
+                        }}
+                        />
 
-                    <circle cx={x1} cy={y1} r={extraWidth} fill="white" parentId={tagObject.id}
-                        onMouseDown={onMouseDownScaleIcon}
-                        // onMouseMove={onMouseMoveScaleIcon}
-                    ></circle>
-                    <circle cx={x2} cy={y2} r={extraWidth} fill="white" parentId={tagObject.id}></circle>
-                    <circle cx={x3} cy={y3} r={extraWidth} fill="white" parentId={tagObject.id}></circle>
-                    <circle cx={x4} cy={y4} r={extraWidth} fill="white" parentId={tagObject.id}></circle>
+                        <circle cx={x1} cy={y1} r={extraWidth} fill="gray" parentId={tagObject.id}
+                            onMouseDown={onMouseDownScaleIcon}
+                            // onMouseMove={onMouseMoveScaleIcon}
+                        ></circle>
+                        <circle cx={x2} cy={y2} r={extraWidth} fill="white" parentId={tagObject.id}></circle>
+                        <circle cx={x3} cy={y3} r={extraWidth} fill="white" parentId={tagObject.id}></circle>
+                        <circle cx={x4} cy={y4} r={extraWidth} fill="yellow" parentId={tagObject.id}
+                            onMouseDown={onMouseDownRotateIcon}
+                        ></circle>
 
 
-                    <line x1={x2 - (x2-x1)/2} y1={y1} x2={x2 - (x2-x1)/2} y2={y2-extraWidth*3} style={{
-                        stroke: 'black',
-                        strokeWidth: '2'
-                    }}/>
-                    <circle cx={x2 - (x2-x1)/2} cy={y2-extraWidth*3} r={extraWidth} fill="white" parentId={tagObject.id}
-                        onMouseDown={onMouseDownRotateIcon}
-                    ></circle>
-                    
+                        {
+                        /* <line x1={x2 - (x2-x1)/2} y1={y1} x2={x2 - (x2-x1)/2} y2={y2-extraWidth*3} style={{
+                            stroke: 'black',
+                            strokeWidth: '2'
+                        }}/>
+                        <circle cx={x2 - (x2-x1)/2} cy={y2-extraWidth*3} r={extraWidth} fill="white" parentId={tagObject.id}
+                            onMouseDown={onMouseDownRotateIcon}
+                        ></circle> */
+                        }
+                        
                     </g>
 
                 <rect id={tagObject.id} x={tagObject.x} y={tagObject.y} width={tagObject.width} height={tagObject.height} style={tagObject.style}  
