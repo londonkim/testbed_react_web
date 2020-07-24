@@ -13,6 +13,9 @@ const objectReducer = (state, action) => {
 const Demo = () => {
 
     let selectedObjectRef = useRef(null)
+    let selectedScaleIconRef = useRef(null)
+    let selectedRotateIconRef = useRef(null)
+
     let selectedTextRef = useRef(null)
     const svgRef = useRef()
 
@@ -24,7 +27,8 @@ const Demo = () => {
         const x = Math.random() * 100
         const y = Math.random() * 100
 
-        const rect = {"type": "rect", "id":id, "x": x,"y": y, "rx":"20", "ry":"20", "width":"150", "height":"150", "style": {"fill":"red"}, "offset": {} }
+        const rect = {"type": "rect", "id":id, "x": x,"y": y, "rx":"20", "ry":"20", "width":"150", "height":"150", "style": {"fill":"red", "transform-box":"fill-box" , "transform-origin": "center"}, "offset": {}, "offsetScaleIcon": {},
+    "originPosition": {"x": x, "y": y}, "originWidthHeight": {"width": 150, "height": 150}, "offsetRotateIcon": {}}
 
         setObjects(objects => [...objects, rect])
 
@@ -72,9 +76,6 @@ const Demo = () => {
     }, [objects])
 
 
-    const cangeRect = () => {
-    }
-
     const onMouseDown = useCallback( event => {
         selectedObjectRef.current = event.target
 
@@ -83,7 +84,8 @@ const Demo = () => {
         const newX = event.clientX - bbox.left;
         const newY = event.clientY - bbox.top;
 
-
+        console.log("onMouseDown")
+        console.log(selectedElement)
         if (selectedObjectRef.current != null) {
 
             const newObjects = objects.filter(object => (object.id != selectedObjectRef.current.id))
@@ -101,42 +103,13 @@ const Demo = () => {
 
     }, [objects, selectedObjectRef])
 
-    const onMouseMove = useCallback( event => {
-
-        
-
-        if (selectedObjectRef.current != null) {
-
-            const bbox = selectedObjectRef.current.getBoundingClientRect();
-        const x = event.clientX - bbox.left;
-        const y = event.clientY - bbox.top;
-
-
-            const newObjects = objects.map(object => {
-                if (object.id == selectedObjectRef.current.id) {
-                    object.x = object.x - (object.offset.x - x)
-                    object.y = object.y - (object.offset.y - y)
-                }
-                return object
-            })
-            setObjects(newObjects)
-        } 
-
-    }, [objects, selectedObjectRef])
-
     const onMouseUp = useCallback( event => {
         console.log("onMouseUp")
         selectedObjectRef.current = null
+        selectedScaleIconRef.current = null
+        selectedRotateIconRef.current = null
         // selectedTextRef.current = null
     }, [objects, selectedObjectRef])
-
-    const onChange3 = (event) => {
-        console.log(event)
-    }
-    const onBlur = (event) => {
-        console.log(event.target)
-
-    }
 
     const onTextClick = event => {
         selectedTextRef.current = event.target
@@ -152,9 +125,7 @@ const Demo = () => {
         if (selectedTextRef.current != null) {
             console.log("change font style")
             const newObjects = objects.filter(object => (object.id != selectedTextRef.current.id))
-    
             const newObject = objects.find(object => (object.id == selectedTextRef.current.id))
-
             newObject.style = {
                 "fontSize": "30px",
                 "fill": "red"
@@ -167,8 +138,129 @@ const Demo = () => {
         }
     }, [objects, selectedTextRef] )
 
-    const onExtendLineClick = () => {
-        alert('dfsdfasf')
+
+
+    const onMouseDownScaleIcon = (event) => {
+
+        selectedScaleIconRef.current = event.target
+        // console.log(selectedScaleIconRef.current)
+
+
+        const selectedElement = event.target
+        const bbox = selectedElement.getBoundingClientRect()
+        const newX = event.clientX - bbox.left;
+        const newY = event.clientY - bbox.top;
+
+        console.log("onMouseDownScaleIcon")
+        if (selectedScaleIconRef.current != null) {
+
+            const newObjects = objects.filter(object => (object.id != selectedElement.getAttribute('parentId')))
+            const newObject = objects.find(object => (object.id == selectedElement.getAttribute('parentId')))
+
+            newObject.offsetScaleIcon = {
+                "x": newX,
+                "y": newY
+            }
+            console.log(newObject)
+            setObjects([...newObjects, newObject])
+        }
+    }
+
+    const onMouseDownRotateIcon = (event) => {
+        selectedRotateIconRef.current = event.target 
+
+
+        const selectedElement = event.target
+        const bbox = selectedElement.getBoundingClientRect()
+        const newX = event.clientX - bbox.left;
+        const newY = event.clientY - bbox.top;
+
+        console.log("onMouseDownRotateIcon")
+        if (selectedRotateIconRef.current != null) {
+
+            const newObjects = objects.filter(object => (object.id != selectedElement.getAttribute('parentId')))
+            let newObject = objects.find(object => (object.id == selectedElement.getAttribute('parentId')))
+
+            newObject.offsetRotateIcon = {
+                "x": newX,
+                "y": newY
+            }
+            
+            newObject.style = {"fill":"red", "transform-box":"fill-box" , "transform-origin": "center", "transform": "rotate(45deg)"}
+            console.log(newObject)
+            setObjects([...newObjects, newObject])
+        }
+
+    }
+
+
+    const onMouseMoveCanvas = (event) => {
+
+
+        if (selectedRotateIconRef.current != null) {
+
+            const bbox = selectedRotateIconRef.current.getBoundingClientRect();
+            const x = event.clientX - bbox.left;
+            const y = event.clientY - bbox.top;
+
+            const newObjects = objects.map(object => {
+
+                if (object.id == selectedRotateIconRef.current.getAttribute('parentId')) {
+                    object.x = object.x - (object.offsetRotateIcon.x - x)
+                    object.y = object.y - (object.offsetRotateIcon.y - y)
+                    
+                    // object.width = Number(object.width) + (object.offsetScaleIcon.x - x)
+                    // object.height = Number(object.height) + (object.offsetScaleIcon.y - y)
+                    // object.height = object.height - (object.offsetScaleIcon.y - y)
+
+                }
+                return object
+            })
+            setObjects(newObjects)
+        } 
+
+
+
+        if (selectedScaleIconRef.current != null) {
+
+            const bbox = selectedScaleIconRef.current.getBoundingClientRect();
+            const x = event.clientX - bbox.left;
+            const y = event.clientY - bbox.top;
+
+            const newObjects = objects.map(object => {
+
+                if (object.id == selectedScaleIconRef.current.getAttribute('parentId')) {
+                    object.x = object.x - (object.offsetScaleIcon.x - x)
+                    object.y = object.y - (object.offsetScaleIcon.y - y)
+                    
+                    object.width = Number(object.width) + (object.offsetScaleIcon.x - x)
+                    object.height = Number(object.height) + (object.offsetScaleIcon.y - y)
+                    // object.height = object.height - (object.offsetScaleIcon.y - y)
+
+                }
+                return object
+            })
+            setObjects(newObjects)
+        } 
+        
+
+        
+        if (selectedObjectRef.current != null) {
+
+            const bbox = selectedObjectRef.current.getBoundingClientRect();
+            const x = event.clientX - bbox.left;
+            const y = event.clientY - bbox.top;
+
+            const newObjects = objects.map(object => {
+                if (object.id == selectedObjectRef.current.id) {
+                    object.x = object.x - (object.offset.x - x)
+                    object.y = object.y - (object.offset.y - y)
+                }
+                return object
+            })
+            setObjects(newObjects)
+        } 
+
     }
     return (
         <div >
@@ -178,17 +270,18 @@ const Demo = () => {
             <button onClick={addText}> Add Text </button>
             <button onClick={chageTextStyle}> Chage Text Style </button>
 
-
-            <div contentEditable={true} onInput={onChange3} onBlur={onBlur}>
+            <div contentEditable={true}>
                 <svg ref={svgRef} style={{
                     backgroundColor: 'blue',
                     width: '100%',
                     height: '500px',
                     cursor: 'default'
-                }}>
+                }}
+                    onMouseMove={onMouseMoveCanvas}
+                    onMouseUp={onMouseUp}
+                >
                     { objects.map(object => {
-                        console.log(object)
-                        return KDesign(object, onMouseDown, onMouseMove, onMouseUp, onTextClick, onExtendLineClick)
+                        return KDesign(object, onMouseDown, onTextClick, onMouseDownScaleIcon, onMouseDownRotateIcon)
                     })}
 
                 </svg>
