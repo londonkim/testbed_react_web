@@ -215,15 +215,19 @@ const Demo = () => {
                     // object.height = object.height - (object.offsetScaleIcon.y - y)
 
 
-                    if (object.offsetRotateIcon.x - x < 0) {
-                        return object
-                    }
-                    if (object.offsetRotateIcon.y - y < 0) {
-                        return object
-                    }
+                    // if (object.offsetRotateIcon.x - x < 0) {
+                    //     return object
+                    // }
+                    // if (object.offsetRotateIcon.y - y < 0) {
+                    //     return object
+                    // }
+
+                    let width = Number(object.width) + (object.offsetRotateIcon.x - x)
+                    let height = Number(object.height) + (object.offsetRotateIcon.y - y)
+
                     let angle = Math.atan2(
-                        object.offsetRotateIcon.x - x ,
-                        object.offsetRotateIcon.y - y
+                        width,
+                        height
                       );
                     
                       let asDegree = angle * 180 / Math.PI;
