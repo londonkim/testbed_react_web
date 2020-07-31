@@ -5,18 +5,22 @@
 <style>
     #container {
         display: flex;
+        
     }
 
     #container div {
-        width: 100px;
+        /* width: 100px; */
         border: 1px solid red;
+        width: 400px;
     }
     
     #box1 {
         order:2;
+        flex: 1, 1, 0;
     }
     #box2 {
         order:3;
+        flex: 1, 2, 1;
     }
     #box3 {
         order:1;
